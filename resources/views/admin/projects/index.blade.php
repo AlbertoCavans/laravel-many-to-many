@@ -15,6 +15,7 @@
                     <th>Project Name</th>
                     <th>Type</th>
                     <th>Project Slug</th>
+                    <th>Technologies</th>
                     <th>Description</th>
                     <th>Buttons</th>
                 </tr>
@@ -25,6 +26,7 @@
                        <td>{{ $project->name_project }}</td>
                        <td>{!! $project->type->getBadge() !!}</td>
                        <td>{{ $project->slug }}</td>
+                       <td>{{ $project->getTechnologies() }}</td>
                        <td>{{ $project->redDescription(50) }}</td>
                        <td>
                        <a href="{{ route("admin.projects.show", $project) }}" class="btn btn-info my-3"><i class="fa-solid fa-book"></i></a>
