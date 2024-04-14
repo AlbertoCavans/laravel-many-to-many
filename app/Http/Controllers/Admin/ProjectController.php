@@ -80,7 +80,8 @@ class ProjectController extends Controller
     {
         $types = Type::all();
         $technologies = Technology::all();
-        return view("admin.projects.form", compact("project", "types", "technologies"));
+        $technologies_id_project = $project->technologies->pluck("id")->toArray();
+        return view("admin.projects.form", compact("project", "types", "technologies", "technologies_id_project"));
     }
 
     /**
@@ -98,6 +99,12 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($project->name_project);
         $project->save();
+
+        if(Arr::exists($data, "technologies")) {
+        $project->technologies()->sync($data["technologies"]);
+        } else {
+            $project->technologies()->detach();
+        }
  
         return redirect()->route("admin.projects.show", $project);
  
@@ -110,6 +117,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->detach();
         $project->delete();
         return redirect()->back();
     }
