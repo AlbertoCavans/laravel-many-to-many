@@ -26,4 +26,9 @@ class Project extends Model
     {
         return(strlen($this->description) > $n_chars) ? substr($this->description, 0, $n_chars) . "..." : $this->description;
     }
+
+    public function getTechnologies()
+    {
+        return implode(', ', $this->technologies->pluck('name')->toArray());
+    }
 }

@@ -19,10 +19,8 @@
                   <h6 class="slug-title">Slug title: <i>{{ $project["slug"] }}</i></h6>
                   <p class="card-text my-3"><strong>Type project:</strong> {!! $project->type->getBadge() !!}</p>
                   <p class="card-text my-3"><strong>Description:</strong> {{ $project["description"] }}</p>
-                  <p class="card-text my-3"><strong>Technologies:</strong> 
-                  @foreach ($technologies as $technology)
-                    <span>{{ $technology->name }}</span>
-                  @endforeach
+                  <p class="card-text my-3"><strong>Technologies: </strong> 
+                  <span>{{ $project->getTechnologies() }}</span>
                   </p>
 
                   <a href="{{ route("admin.projects.edit", $project) }}" class="btn btn-primary">Update Project</a>
