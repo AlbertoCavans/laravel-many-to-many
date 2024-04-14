@@ -10,6 +10,7 @@ use App\Models\Type;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class ProjectController extends Controller
 {
@@ -52,7 +53,9 @@ class ProjectController extends Controller
        $project->slug = Str::slug($project->name_project);
        $project->save();
 
+       if (array_key_exists("technologies", $data)) {
        $project->technologies()->attach($data["technologies"]);
+       }
 
        return redirect()->route("admin.projects.show", $project);
     }
