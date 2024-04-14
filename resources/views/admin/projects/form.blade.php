@@ -27,16 +27,15 @@
         @csrf
         
         <div class="col-6">
+            <!-- NAME PROJECT INPUT -->
             <label for="name_project" class="form-label">Name of the project</label>
             <input type="text" @class([ 'form-control', 'is-invalid' => $errors->has('name_project') ]) id="name_project" name="name_project"
             value="{{ old("name_project", $project["name_project"]) }}">
             @error("name_project")
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
-        </div>
 
-
-        <div class="col-6">
+            <!-- TYPE PROJECT SELECT -->
             <label for="type_id" class="form-label">Type of project</label>
             <select name="type_id" id="type_id" @class([ 'form-select', 'is-invalid' => $errors->has('type_id') ])>
             <option value="" class="d-none">Select a type</option>
@@ -48,6 +47,16 @@
             @error("type_id")
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+        </div>
+
+        <div class="col-6">
+            @foreach($technologies as $technology)
+            <div>
+            <input type="checkbox" name="technologies[]" id="technologies-{{ $technology->id }}" class="form-check-label"
+            value="{{ $technology->id }}">
+            <label for="technologies-{{ $technology->id }}" class="form-check-label">{{ $technology->name }}</label>
+            </div>
+            @endforeach
         </div>
 
         <div class="col-12">

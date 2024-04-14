@@ -31,7 +31,8 @@ class ProjectController extends Controller
     {
         $project = new Project;
         $types = Type::all();
-        return view("admin.projects.form", compact("project", "types"));
+        $technologies = Technology::all();
+        return view("admin.projects.form", compact("project", "types", "technologies"));
     }
 
     /**
@@ -50,6 +51,8 @@ class ProjectController extends Controller
        $project->fill($data);
        $project->slug = Str::slug($project->name_project);
        $project->save();
+
+       $project->technologies()->attach($data["technologies"]);
 
        return redirect()->route("admin.projects.show", $project);
     }
@@ -73,7 +76,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view("admin.projects.form", compact("project", "types"));
+        $technologies = Technology::all();
+        return view("admin.projects.form", compact("project", "types", "technologies"));
     }
 
     /**
