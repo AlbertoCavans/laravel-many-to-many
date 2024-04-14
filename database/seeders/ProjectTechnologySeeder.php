@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Generator as Faker;
 
 class ProjectTechnologySeeder extends Seeder
 {
@@ -13,9 +15,18 @@ class ProjectTechnologySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        $project = Project::find(1);
-        $project->technologies()->attach([1, 4, 7]);
+        $projects = Project::all();
+
+        $technologies = Technology::all()->pluck("id");
+
+       /*  dd($technologies); */
+
+        foreach ($projects as $project) {
+            $random_technologies = $faker->randomElements($technologies, rand(1, 6));
+            /* dd($random_technologies); */
+            $project->technologies()->sync($random_technologies);
+        }
     }
 }
