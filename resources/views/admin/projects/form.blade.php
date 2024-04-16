@@ -57,6 +57,9 @@
                 @error("img")
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                @if(!empty($project->img))
+                <img class="w-100 mt-3" src="{{ asset("storage/" . $project->img) }}" alt="">
+                @endif
             </div>
 
 
