@@ -23,6 +23,11 @@
                   <span>{{ $project->getTechnologies() }}</span>
                   </p>
 
+                  @if(!empty($project->img))
+                  <img src="{{ asset("storage/" . $project->img) }}" alt="">
+
+                  @endif
+
                   <a href="{{ route("admin.projects.edit", $project) }}" class="btn btn-primary">Update Project</a>
                 </div>   
               </div>

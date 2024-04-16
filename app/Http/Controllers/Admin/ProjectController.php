@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
@@ -47,10 +48,14 @@ class ProjectController extends Controller
        $request->validated();
 
        $data = $request->all();
+      
+
+       $img_link = Storage::put("uploads/projects", $data["img"]);
 
        $project = new Project;
        $project->fill($data);
        $project->slug = Str::slug($project->name_project);
+       $project->img = $img_link;
        $project->save();
 
        if (array_key_exists("technologies", $data)) {

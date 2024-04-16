@@ -19,7 +19,7 @@
         </div>
         @endif
 
-        <form action="{{ empty($project->id) ? route("admin.projects.store") : route("admin.projects.update", $project) }}"
+        <form enctype="multipart/form-data" action="{{ empty($project->id) ? route("admin.projects.store") : route("admin.projects.update", $project) }}"
         class="row g-3" method="POST">
         @if(!empty($project->id))
         @method("PATCH")
@@ -47,6 +47,15 @@
             @error("type_id")
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+
+            <!-- INPUT FILE - IMG -->
+
+            <div>
+                <label class="form-label" for="img">Project Cover</label>
+                <input class="form-control" type="file" id="img" name="img">
+            </div>
+
+
         </div>
 
         <div class="col-6">
