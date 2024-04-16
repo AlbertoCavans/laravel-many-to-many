@@ -52,7 +52,11 @@
 
             <div>
                 <label class="form-label" for="img">Project Cover</label>
-                <input class="form-control" type="file" id="img" name="img">
+                <input @class([ 'form-control', 'is-invalid' => $errors->has('img') ]) 
+                type="file" id="img" name="img">
+                @error("img")
+                <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
 

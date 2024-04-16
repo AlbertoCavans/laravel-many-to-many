@@ -50,12 +50,15 @@ class ProjectController extends Controller
        $data = $request->all();
       
 
-       $img_link = Storage::put("uploads/projects", $data["img"]);
+       
 
        $project = new Project;
        $project->fill($data);
        $project->slug = Str::slug($project->name_project);
+       if (Arr::exists($data ,"img")) {
+       $img_link = Storage::put("uploads/projects", $data['img']);
        $project->img = $img_link;
+       }
        $project->save();
 
        if (array_key_exists("technologies", $data)) {
@@ -108,7 +111,7 @@ class ProjectController extends Controller
             if(!empty($project->img)) {
                 Storage::delete($project->img);
             }
-            $img_link = Storage::put("uploads/projects", $data["img"]);
+            $img_link = Storage::put("uploads/projects", $data['img']);
             $project->img = $img_link;
         }
         $project->save();
