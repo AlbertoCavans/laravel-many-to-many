@@ -103,7 +103,17 @@ class ProjectController extends Controller
         $data = $request->all();
         $project->fill($data);
         $project->slug = Str::slug($project->name_project);
+
+        if (Arr::exists($data ,"img")) {
+            if(!empty($project->img)) {
+                Storage::delete($project->img);
+            }
+            $img_link = Storage::put("uploads/projects", $data["img"]);
+            $project->img = $img_link;
+        }
         $project->save();
+
+
 
         if(Arr::exists($data, "technologies")) {
         $project->technologies()->sync($data["technologies"]);

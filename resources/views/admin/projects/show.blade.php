@@ -28,7 +28,7 @@
 
                   @endif
 
-                  <a href="{{ route("admin.projects.edit", $project) }}" class="btn btn-primary">Update Project</a>
+                  <a href="{{ route("admin.projects.edit", $project) }}" class="btn btn-primary mt-3">Update Project</a>
                 </div>   
               </div>
             </div>
